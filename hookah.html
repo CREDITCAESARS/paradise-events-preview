@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puff Paradise Hookahs | Mobile Hookah Catering &amp; Rentals in NJ, NY, PA, CT</title>
+<meta name="description" content="Puff Paradise Hookahs, a Paradise Events Co. brand: mobile hookah bar catering, hookah rentals and fruit hookahs for birthdays, bachelorettes, pool parties, graduations, lounges and clubs. We come to you across NJ, NY, PA and CT.">
+<meta property="og:title" content="Puff Paradise Hookahs | The Fruit Hookah Experts">
+<meta property="og:description" content="Mobile hookah catering and rentals. We come to you.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="img/hookah-hero.jpg">
+<meta name="theme-color" content="#0B0B0D">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+<style>
+  /* Puff Paradise accent: same system, violet highlight + smoke. Actions stay Paradise gold. */
+  .puff { --violet: #A35CFF; --violet-glow: rgba(163,92,255,.6); }
+  .puff .hl {
+    color: #fff;
+    background: linear-gradient(95deg, #E040A0 0%, #A35CFF 50%, #6A3BE0 100%);
+    background-size: 200% 100%;
+    box-shadow: 0 0 30px -4px var(--violet-glow), 0 0 90px -20px rgba(224,64,160,.6);
+    text-shadow: 0 1px 2px rgba(0,0,0,.3);
+  }
+  .puff .rail { background: linear-gradient(90deg, #E040A0, #A35CFF, var(--gold)); }
+  .puff .tag { color: #D7A8FF; }
+  .puff .pools::before {
+    background: radial-gradient(640px 320px at 12% 8%, rgba(163,92,255,.14), transparent 70%),
+                radial-gradient(520px 300px at 92% 92%, rgba(224,64,160,.1), transparent 70%);
+  }
+  .puff .marquee li:nth-child(even) { -webkit-text-stroke-color: #C08BFF; }
+  .puff .marquee li::after { color: #C08BFF; }
+
+  /* drifting smoke over the hero */
+  .smoke { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+  .smoke span {
+    position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(60px); opacity: .35; mix-blend-mode: screen;
+    background: radial-gradient(circle, rgba(163,92,255,.75), transparent 60%);
+    animation: puff 18s ease-in-out infinite alternate;
+  }
+  .smoke span:nth-child(1) { left: -20vmax; bottom: -30vmax; }
+  .smoke span:nth-child(2) { right: -25vmax; top: -25vmax; background: radial-gradient(circle, rgba(224,64,160,.6), transparent 60%); animation-duration: 22s; animation-delay: -6s; }
+  .smoke span:nth-child(3) { left: 30%; bottom: -40vmax; width: 45vmax; height: 45vmax; animation-duration: 26s; animation-delay: -12s; }
+  @keyframes puff { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(8vmax,-10vmax,0) scale(1.25); } }
+
+  .card .media::after { background: linear-gradient(180deg, transparent 45%, rgba(18,18,22,.95)); }
+  .card:hover { box-shadow: inset 0 0 0 1px rgba(163,92,255,.6), 0 0 0 1px rgba(163,92,255,.25), 0 0 34px -6px var(--violet-glow), 0 26px 50px -24px #000; }
+  @media (min-width: 1060px) { .cards.three { grid-template-columns: repeat(3, 1fr); } }
+
+  .earn { max-width: 760px; margin: 2.4rem auto 0; padding: 22px 26px; border-radius: 18px;
+    background: linear-gradient(95deg, rgba(224,64,160,.12), rgba(163,92,255,.12));
+    box-shadow: inset 0 0 0 1px rgba(163,92,255,.45), 0 0 40px -18px var(--violet-glow); }
+  .earn h3 { margin-bottom: 6px; }
+  .earn p { margin: 0; color: var(--ink-dim); }
+
+  .crumb { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 1.2rem; padding: 7px 14px; border-radius: 999px;
+    font: 700 .64rem Sora, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); text-decoration: none;
+    background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(227,180,76,.45); }
+  .crumb:hover { color: var(--gold); }
+  .note21 { margin-top: 1.4rem; font-size: .85rem; color: var(--ink-dim); }
+  .best-for { display: block; margin-top: 4px; font: 700 .64rem Sora, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+</style>
+</head>
+<body class="no-js puff">
+<a class="skip" href="#main">Skip to content</a>
+<div class="rail" aria-hidden="true"></div>
+
+<header id="hdr">
+  <div class="bar">
+    <!-- PLACEHOLDER: swap the PP monogram for the Puff Paradise logo file -->
+    <a class="logo" href="#top" aria-label="Puff Paradise Hookahs home">
+      <span class="mono" aria-hidden="true">PP</span>
+      <span class="logo-name">Puff Paradise<small>Hookahs</small></span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#options">Options</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#book">Book</a></li>
+        <li><a href="index.html">Paradise Events</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-gold btn-sm" href="#book">Book Now <span data-cart-count hidden></span></a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="hero-bg" style="background-image:url(img/hookah-hero.jpg)" role="img" aria-label="Upscale hookah lounge with purple smoke and gold chandeliers"></div>
+    <div class="smoke" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="wrap">
+      <a class="crumb rise" style="--i:0" href="index.html">A Paradise Events Co. brand</a>
+      <p class="eyebrow rise" style="--i:0">Puff Paradise Hookahs · Est. 2023</p>
+      <h1 class="rise" style="--i:1"><span class="line">The fruit hookah</span> <span class="hl">experts</span></h1>
+      <p class="lede rise" style="--i:2">The setup your guests talk about after the party. Mobile hookah bar, rentals and fresh fruit hookahs with premium shisha. We come to you, no hassle.</p>
+      <div class="cta rise" style="--i:3">
+        <a class="btn btn-gold" href="#book">Book hookahs — 2 min <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn-glass" href="#options">See the options</a>
+      </div>
+      <div class="assure rise" style="--i:4"><span>Free quote</span><span>No commitment</span><span>We bring everything</span></div>
+      <div class="trust rise" style="--i:5">
+        <span>NJ · NY · PA · CT</span><span>Premium shisha</span><span>We come to you</span>
+      </div>
+    </div>
+    
+
+  </section>
+
+  <div class="marquee" aria-label="Events we serve">
+    <div class="marquee-track">
+      <ul>
+        <li>Birthdays</li><li>Bachelorettes</li><li>Pool Parties</li><li>Graduations</li><li>Lounges</li><li>Clubs</li><li>Private Events</li>
+      </ul>
+      <ul aria-hidden="true">
+        <li>Birthdays</li><li>Bachelorettes</li><li>Pool Parties</li><li>Graduations</li><li>Lounges</li><li>Clubs</li><li>Private Events</li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="options" class="pools">
+    <div class="wrap">
+      <p class="eyebrow rise">How you can book us</p>
+      <h2 class="rise" style="--i:1"><span class="line">Pick your</span> <span class="hl">puff</span></h2>
+      <p class="lede rise" style="--i:2">Full-service hookah bar at your event, or a rental for a smaller hang. Either way, no hassle.</p>
+
+      <div class="cards three">
+        <article class="card rise" style="--i:0">
+          <div class="media"><img src="img/hookah-bar.jpg" alt="Row of glowing hookahs on a black and gold mobile bar at an outdoor night event" width="900" height="673" loading="lazy"><span class="tag">Full service</span></div>
+          <div class="body">
+            <span class="best-for">Best for parties &amp; big events</span>
+            <h3>Mobile Hookah Bar</h3>
+            <p>Book us to cater or vend your next event. We bring the bar to you.</p>
+            <ul><li>We come to your event</li><li>Cater or vend options</li><li>No hassle for the host</li></ul>
+            <button class="btn btn-glass btn-sm" type="button" data-service="Mobile Hookah Bar" aria-pressed="false">Add to my booking</button>
+          </div>
+        </article>
+
+        <article class="card rise" style="--i:1">
+          <div class="media"><img src="img/hookah-kit.jpg" alt="Two gold hookahs with flavor tins, coals and fresh fruit on purple velvet" width="900" height="673" loading="lazy"><span class="tag">Rentals</span></div>
+          <div class="body">
+            <span class="best-for">Best for small gatherings</span>
+            <h3>Hookah Rentals</h3>
+            <p>Perfect for small gatherings at home or a private spot.</p>
+            <ul><li>Variety of flavors</li><li>Coals included</li><li>Great for small groups</li></ul>
+            <button class="btn btn-glass btn-sm" type="button" data-service="Hookah Rental" aria-pressed="false">Add to my booking</button>
+          </div>
+        </article>
+
+        <article class="card rise" style="--i:2">
+          <div class="media"><img src="img/hookah-fruit.jpg" alt="Pineapple fruit-head hookah on a gold stem with tropical fruit and purple smoke" width="900" height="673" loading="lazy"><span class="tag">Signature</span></div>
+          <div class="body">
+            <span class="best-for">Best for the wow moment</span>
+            <h3>Fruit Hookahs</h3>
+            <p>Our signature. Fresh fruit heads packed with premium shisha.</p>
+            <ul><li>Fresh fruit heads</li><li>Premium shisha</li><li>The showpiece of the night</li></ul>
+            <button class="btn btn-glass btn-sm" type="button" data-service="Fruit Hookahs" aria-pressed="false">Add to my booking</button>
+          </div>
+        </article>
+      </div>
+
+      <div class="earn rise">
+        <h3>Hosting a big event?</h3>
+        <p>You can earn money when you book us to vend. Ask us how it works. <span class="ph">(confirm the vending terms)</span></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="band">
+    <div class="wrap">
+      <strong>Got a date coming up?</strong>
+      <p>Reach out early so you're not searching for a hookah setup the week of your event.</p>
+      <a class="btn btn-gold btn-sm" href="#book">Check my date <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+
+  <section id="how" class="pools alt">
+    <div class="wrap">
+      <p class="eyebrow rise">How it works</p>
+      <h2 class="rise" style="--i:1"><span class="line">Three steps to</span> <span class="hl">the lounge</span></h2>
+      <div class="steps">
+        <div class="step rise" style="--i:0"><div class="num">1</div><h3>Tell us your event</h3><p>Your date, location, guest count, and the vibe you want.</p></div>
+        <div class="step rise" style="--i:1"><div class="num">2</div><h3>Pick bar or rental</h3><p>Full-service hookah bar, a rental, or fruit hookahs. We'll help you choose.</p></div>
+        <div class="step rise" style="--i:2"><div class="num">3</div><h3>We come to you</h3><p>Lock in your date and we bring the hookahs. You enjoy the night.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="pools">
+    <div class="wrap">
+      <p class="eyebrow rise">Questions</p>
+      <h2 class="rise" style="--i:1"><span class="line">Before you</span> <span class="hl">book</span></h2>
+      <div class="faq rise" style="--i:2">
+        <details><summary>What comes with a hookah rental?</summary><p>Rentals come with a variety of flavors and coal. They're perfect for small gatherings.</p></details>
+        <details><summary>What's the difference between the bar and a rental?</summary><p>With the mobile hookah bar, we come to your event and cater or vend. With a rental, you get the hookahs, flavors and coal for your own smaller hang.</p></details>
+        <details><summary>Where do you serve?</summary><p>New Jersey, New York, Pennsylvania and Connecticut. We come to you.</p></details>
+        <details><summary>Can I earn money when you vend my event?</summary><p>Yes, you can earn when you book us to vend. Ask us how it works for your event.</p></details>
+        <details><summary>Is there an age requirement?</summary><p>Yes. Hookah service is for guests 21 and older.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote" id="book" data-form-section>
+    <div class="wrap">
+      <p class="eyebrow rise">Book now</p>
+      <h2 class="rise" style="--i:1"><span class="line">Book your</span> <span class="hl">hookahs</span></h2>
+      <p class="lede rise" style="--i:2">Tell us about your event and we'll get back to you. <span class="ph">Response time: TBD</span></p>
+
+      <div class="form-shell rise" style="--i:3">
+        <form id="quote-form" novalidate data-bump="Fruit Hookahs|fruit hookahs|Fresh fruit heads with premium shisha. The showpiece of the night.;;Mobile Hookah Bar|the full hookah bar|We run it at your event, so you don't lift a finger." data-endpoint="" data-ig="https://www.instagram.com/puffparadisehookahs/" data-brand="Puff Paradise Hookahs">
+          <!-- PLACEHOLDER: set data-endpoint to the owner's form endpoint (Formspree / GHL webhook) before launch -->
+          <div class="fprog"><span class="fprog-label" aria-live="polite"></span><div class="fprog-track"><div class="fprog-bar"></div></div></div>
+
+          <div class="fstep" data-title="About you">
+            <h3>First, who are we planning with?</h3>
+            <div>
+              <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
+              <input id="name" name="name" autocomplete="name" required>
+            </div>
+            <div>
+              <label for="phone">Phone <span class="req" aria-hidden="true">*</span></label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+            </div>
+            <div class="full">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email">
+            </div>
+            <div class="fnav"><button class="btn btn-gold" type="button" data-next>Next: your event <span class="arrow" aria-hidden="true">→</span></button></div>
+            <p class="fine">Free and no commitment. We only use your details to reply about your event.</p>
+          </div>
+
+          <div class="fstep" data-title="Your event" hidden>
+            <h3>What's the occasion?</h3>
+            <fieldset class="full">
+              <legend>Event type <span class="req" aria-hidden="true">*</span></legend>
+              <div class="tiles">
+                <label><input type="radio" name="occasion" value="Birthday" required data-label="Event type"> Birthday</label>
+                <label><input type="radio" name="occasion" value="Bachelorette"> Bachelorette</label>
+                <label><input type="radio" name="occasion" value="Pool Party"> Pool Party</label>
+                <label><input type="radio" name="occasion" value="Graduation"> Graduation</label>
+                <label><input type="radio" name="occasion" value="Lounge / Club"> Lounge / Club</label>
+                <label><input type="radio" name="occasion" value="Other"> Something else</label>
+              </div>
+            </fieldset>
+            <fieldset class="full">
+              <legend>What do you want? <span style="text-transform:none;letter-spacing:0;font-weight:500">(pick any, or none yet)</span></legend>
+              <div class="checks opts">
+                <label class="opt"><input type="checkbox" name="services" value="Mobile Hookah Bar"><span><b>Mobile Hookah Bar</b><small>We cater or vend your event</small></span></label>
+                <label class="opt"><input type="checkbox" name="services" value="Hookah Rental"><span><b>Hookah Rental</b><small>Flavors &amp; coal included</small></span></label>
+                <label class="opt"><input type="checkbox" name="services" value="Fruit Hookahs"><span><b>Fruit Hookahs</b><small>Fresh fruit heads</small></span></label>
+                <label class="opt"><input type="checkbox" name="services" value="Vending"><span><b>Vending</b><small>Ask how you can earn</small></span></label>
+              </div>
+            </fieldset>
+            <div class="full ups" data-pairs hidden></div>
+            <div class="fnav"><button class="btn btn-glass" type="button" data-back>Back</button><button class="btn btn-gold" type="button" data-next>Next: date &amp; place <span class="arrow" aria-hidden="true">→</span></button></div>
+          </div>
+
+          <div class="fstep" data-title="Date &amp; place" hidden>
+            <h3>When and where?</h3>
+            <div>
+              <label for="date">Event date <span class="req" aria-hidden="true">*</span></label>
+              <input id="date" name="date" type="date" required>
+            </div>
+            <div>
+              <label for="location">Event city / town <span class="req" aria-hidden="true">*</span></label>
+              <input id="location" name="location" autocomplete="address-level2" required>
+            </div>
+            <div class="full">
+              <label for="guests">Guest count</label>
+              <select id="guests" name="guests">
+                <option value="">Select…</option>
+                <option>Under 10</option><option>10–25</option><option>25–50</option><option>50–100</option><option>100+</option>
+              </select>
+            </div>
+            <div class="full">
+              <label for="notes">Anything else?</label>
+              <textarea id="notes" name="notes" placeholder="Flavors, venue, timing…"></textarea>
+            </div>
+            <fieldset class="full">
+              <div class="checks" style="grid-template-columns:1fr">
+                <label><input type="checkbox" name="age21" id="age21" value="yes" required data-label="the 21+ confirmation"> Everyone using the hookahs will be 21 or older</label>
+              </div>
+            </fieldset>
+            <div class="full" data-bump-slot></div>
+            <div class="fnav"><button class="btn btn-glass" type="button" data-back>Back</button><button class="btn btn-gold" type="submit">Request my booking <span class="arrow" aria-hidden="true">→</span></button></div>
+          </div>
+          <div class="form-msg" id="form-msg" role="status" aria-live="polite" hidden></div>
+        </form>
+        <div class="form-done" id="form-done" hidden>
+          <p class="demo-note"><strong>Demo preview:</strong> nothing was sent. On the live site, this request goes straight to the owner.</p>
+          <h3>Request received. <span class="hl">Let's puff.</span></h3>
+          <ol><li>We review your event details.</li><li>We reach out to talk through options.</li><li>You lock in your date.</li></ol>
+          <p class="ph">Owner to confirm next steps &amp; response time</p>
+          <a class="cross" href="index.html#packs">
+            <span class="cross-img" style="background-image:url(img/bartending.jpg)"></span>
+            <span><small>Complete the party</small><b>Add a bar &amp; 360° booth</b><span>Mobile bartending, treats &amp; more from Paradise Events Co. →</span></span>
+          </a>
+          <div><button class="btn btn-glass btn-sm" type="button" data-restart>Back to the form</button></div>
+        </div>
+      </div>
+      <p class="note21 rise">Hookah service is for guests 21+.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap cols">
+    <div>
+      <a class="logo" href="#top"><span class="mono" aria-hidden="true">PP</span><span class="logo-name">Puff Paradise<small>Hookahs</small></span></a>
+      <p>Puff Paradise Hookahs LLC · Est. 2023<br>A <a href="index.html">Paradise Events Co.</a> brand<br>Serving NJ · NY · PA · CT</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <ul>
+        <li class="ph">Phone: TBD</li>
+        <li class="ph">Email: TBD</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Follow</h3>
+      <ul>
+        <li><a href="https://www.instagram.com/puffparadisehookahs/" rel="noopener" target="_blank">@puffparadisehookahs</a></li>
+        <li><a href="https://www.instagram.com/paradiseeventsco/" rel="noopener" target="_blank">@paradiseeventsco</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap"><p style="margin-top:28px">© <span id="yr">2026</span> Puff Paradise Hookahs LLC</p></div>
+</footer>
+
+<div class="dock" id="dock"><a class="btn btn-gold" href="#book">Book hookahs <span data-cart-count hidden></span> <span class="arrow" aria-hidden="true">→</span></a></div>
+
+<script src="js/site.js"></script>
+</body>
+</html>
