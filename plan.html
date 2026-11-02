@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Paradise Content Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root {
+  --bg: #0B0B0D; --panel: #141318; --panel2: #1B1A20; --line: #2A2730;
+  --ink: #F3EEE3; --dim: #A69F93; --gold: #E3B44C; --gold-deep: #B8862A;
+  --violet: #B79CFF; --hot: #FF8A5B; --ok: #6FD39B;
+  --display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --body: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.15; text-wrap: balance; }
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); font-weight: 800; text-transform: uppercase; }
+h2 { font-size: clamp(1.4rem, 4vw, 1.9rem); font-weight: 800; text-transform: uppercase; }
+h3 { font-size: 1.05rem; font-weight: 700; }
+.hl { background: var(--gold); color: var(--bg); padding: 0 .18em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+p { margin: 0; max-width: 65ch; }
+a { color: var(--gold); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.eyebrow { font: 700 .72rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.dim { color: var(--dim); }
+
+/* top nav */
+.nav { position: sticky; top: 0; z-index: 20; background: rgba(11,11,13,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding-top: env(safe-area-inset-top); }
+.nav .wrap { display: flex; gap: 6px; overflow-x: auto; padding-block: 10px; scrollbar-width: none; }
+.nav .wrap::-webkit-scrollbar { display: none; }
+.nav a { flex: none; text-decoration: none; color: var(--ink); font: 700 .8rem/1 var(--body); letter-spacing: .06em; text-transform: uppercase; padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; }
+.nav a:hover { border-color: var(--gold-deep); }
+
+section { padding-block: 48px; border-bottom: 1px solid var(--line); }
+section > .wrap { display: grid; gap: 20px; }
+header.hero { padding-block: 48px 36px; }
+header.hero .wrap { display: grid; gap: 16px; }
+.stats { display: flex; flex-wrap: wrap; gap: 10px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; display: grid; }
+.stat b { font: 800 1.4rem/1.1 var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
+.stat span { font-size: .8rem; color: var(--dim); }
+
+/* start here */
+.points { display: grid; gap: 12px; counter-reset: p; }
+.point { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px 16px 58px; position: relative; display: grid; gap: 4px; }
+.point::before { counter-increment: p; content: counter(p); position: absolute; left: 16px; top: 16px; width: 28px; height: 28px; border-radius: 50%; background: var(--gold); color: var(--bg); font: 800 .9rem/28px var(--display); text-align: center; }
+.point p { color: var(--dim); }
+.warn { border: 1px solid var(--hot); border-radius: 12px; padding: 16px 18px; background: var(--panel); display: grid; gap: 6px; }
+.warn h3 { color: var(--hot); }
+
+/* chips */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 8px 14px; font: 700 .78rem/1 var(--body); letter-spacing: .05em; text-transform: uppercase; color: var(--dim); }
+.chip[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+
+/* videos */
+.vgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.vcard { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+.vstage { aspect-ratio: 9 / 16; max-height: 560px; width: 100%; background: radial-gradient(120% 80% at 50% 0%, #2a2210 0%, var(--panel2) 55%); display: grid; place-items: center; position: relative; }
+.vstage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.vplay { display: grid; justify-items: center; gap: 12px; background: none; border: 0; padding: 20px; text-align: center; }
+.vplay .views { font: 800 2.6rem/1 var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
+.vplay .lbl { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.vplay .btn-play { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: var(--bg); font: 800 .85rem/1 var(--display); text-transform: uppercase; padding: 14px 20px; border-radius: 999px; box-shadow: 0 6px 20px rgba(227,180,76,.25); }
+.vbody { padding: 16px; display: grid; gap: 8px; align-content: start; }
+.vmeta { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { font: 700 .68rem/1 var(--body); letter-spacing: .08em; text-transform: uppercase; padding: 5px 8px; border-radius: 4px; border: 1px solid var(--line); color: var(--dim); }
+.pill.f { border-color: var(--gold-deep); color: var(--gold); }
+.pill.s { border-color: var(--ok); color: var(--ok); }
+.vbody .copy { font-size: .92rem; color: var(--ink); background: var(--panel2); border-left: 3px solid var(--gold); padding: 8px 10px; border-radius: 0 6px 6px 0; }
+.vbody .src { font-size: .8rem; color: var(--dim); }
+
+/* formats */
+.fgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.fmt { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 8px; align-content: start; }
+.fmt .proof { color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; }
+.fmt p { color: var(--dim); font-size: .95rem; }
+.fmt .use { color: var(--ink); }
+
+/* planner */
+.pbar { display: grid; gap: 8px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.pbar-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+.pbar-top b { font: 800 1.3rem/1 var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
+.track { height: 10px; border-radius: 999px; background: var(--panel2); overflow: hidden; }
+.track i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--gold-deep), var(--gold)); transition: width .3s; }
+.week { display: grid; gap: 10px; }
+.week-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; border-top: 2px solid var(--gold); padding-top: 14px; }
+.week-head .cnt { font-size: .85rem; color: var(--dim); font-variant-numeric: tabular-nums; }
+.post { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; grid-template-columns: 64px 1fr; gap: 4px 14px; }
+.post.done { border-color: rgba(111,211,155,.45); }
+.post .when { display: grid; align-content: start; text-align: center; background: var(--panel2); border-radius: 8px; padding: 8px 4px; }
+.post .when b { font: 800 1.3rem/1 var(--display); }
+.post .when span { font: 700 .68rem/1.4 var(--body); text-transform: uppercase; letter-spacing: .08em; color: var(--dim); }
+.post .what { display: grid; gap: 6px; min-width: 0; }
+.post .kind { font: 700 .68rem/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+.post.puff .kind { color: var(--violet); }
+.post .hook { font-weight: 700; }
+.post .how { color: var(--dim); font-size: .92rem; }
+.post .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.tog { border: 1px solid var(--line); background: var(--panel2); border-radius: 999px; padding: 8px 14px; font: 700 .78rem/1 var(--body); letter-spacing: .04em; color: var(--dim); }
+.tog[aria-pressed="true"] { background: var(--ok); border-color: var(--ok); color: #0B0B0D; }
+.tog.copyb { border-style: dashed; }
+
+/* lists */
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.shot { display: grid; gap: 8px; }
+.shot button { text-align: left; display: flex; gap: 12px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.shot button .dot { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font-size: .8rem; color: transparent; }
+.shot button[aria-pressed="true"] { border-color: rgba(111,211,155,.45); color: var(--dim); }
+.shot button[aria-pressed="true"] .dot { background: var(--ok); border-color: var(--ok); color: var(--bg); }
+.reset { justify-self: start; background: none; border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; color: var(--dim); font-size: .85rem; }
+.hooks { display: grid; gap: 8px; }
+.hook-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px 10px 16px; }
+.hook-row span { font-weight: 700; min-width: 0; }
+ul.rules { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+ul.rules li::marker { color: var(--gold); }
+footer { padding-block: 32px 48px; color: var(--dim); font-size: .85rem; }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(20px); opacity: 0; background: var(--gold); color: var(--bg); font-weight: 700; padding: 10px 18px; border-radius: 999px; transition: .25s; pointer-events: none; z-index: 30; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+@media (max-width: 520px) { .post { grid-template-columns: 52px 1fr; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .track i, .toast { transition: none; } }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a href="#start">Start here</a>
+    <a href="#videos">Viral videos</a>
+    <a href="#formats">Formats</a>
+    <a href="#planner">Planner</a>
+    <a href="#film">Film list</a>
+    <a href="#hooks">Hooks</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Paradise Events Co. · Puff Paradise Hookahs</span>
+    <h1>November <span class="hl">content planner</span></h1>
+    <p class="dim">What's going viral for party rentals, mobile bars, 360 booths, treat machines and hookah right now, the actual videos to watch, and a day-by-day plan to post from. Check things off as you go.</p>
+    <div class="stats">
+      <div class="stat"><b>379</b><span>videos pulled</span></div>
+      <div class="stat"><b>278</b><span>from the last 12 months</span></div>
+      <div class="stat"><b>48.4M</b><span>top video's views</span></div>
+      <div class="stat"><b>36</b><span>posts planned</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="start">
+  <div class="wrap">
+    <span class="eyebrow">Start here</span>
+    <h2>What the numbers say</h2>
+    <div class="points">
+      <div class="point"><h3>Machines beat everything</h3><p>A cotton candy machine getting cleaned did 48.4 million views. Two more cotton candy videos did 5.3M and 614K. You have the machines, and nobody around here is filming them.</p></div>
+      <div class="point"><h3>Small accounts go viral in this niche</h3><p>A party host with 5,714 followers got 1.2M views. A mobile bar with 2,239 followers got 199K. You don't need followers first.</p></div>
+      <div class="point"><h3>People love watching the setup</h3><p>"Mobile bar in 3 steps" did 971K. "Watch me set up" did 930K. Empty space turning into a party is the proof people want before they book.</p></div>
+      <div class="point"><h3>Short and funny works</h3><p>A 7-second bartender joke did 437K. A 5-second clip did 199K. Not every post needs editing.</p></div>
+      <div class="point"><h3>Hookah needs a different play</h3><p>The best hookah video all year got 5,841 views. TikTok keeps smoking off the For You page. For Puff Paradise, show the fruit carving, the lounge setup and people having a good time, not the smoke.</p></div>
+    </div>
+    <div class="warn">
+      <h3>Fix first: the Puff Paradise bio</h3>
+      <p>The Instagram bio says "Cannabis Infused." That can get the account restricted, so take it out before posting anything new.</p>
+    </div>
+    <div class="local">
+      <p class="dim">Around New Jersey, the bigger accounts in this space are a mobile hookah service with about 3,700 followers and a mobile bar with about 2,800. That's a low bar. One good video can put Paradise on top.</p>
+    </div>
+  </div>
+</section>
+
+<section id="videos">
+  <div class="wrap">
+    <span class="eyebrow">Watch these</span>
+    <h2>The viral videos</h2>
+    <p class="dim">Tap Play to watch right here. Under each one is how we'd make our own version.</p>
+    <div class="chips" id="vfilter" role="group" aria-label="Filter videos by format"></div>
+    <div class="vgrid" id="vgrid"></div>
+  </div>
+</section>
+
+<section id="formats">
+  <div class="wrap">
+    <span class="eyebrow">What to copy</span>
+    <h2>The 5 formats</h2>
+    <div class="fgrid" id="fgrid"></div>
+  </div>
+</section>
+
+<section id="planner">
+  <div class="wrap">
+    <span class="eyebrow">Nov 2 – 29</span>
+    <h2>The planner</h2>
+    <p class="dim">Paradise: 4 Reels and 2 carousels a week. Puff Paradise: 2 Reels and 1 carousel a week. Post every Reel on TikTok too. Tap Filmed and Posted as you go. It saves on this phone.</p>
+    <div class="pbar">
+      <div class="pbar-top"><span>Posted so far</span><b id="ptotal">0 / 36</b></div>
+      <div class="track"><i id="pfill"></i></div>
+    </div>
+    <div class="chips" id="pfilter" role="group" aria-label="Show posts for"></div>
+    <div id="weeks" style="display:grid;gap:28px"></div>
+  </div>
+</section>
+
+<section id="film">
+  <div class="wrap">
+    <span class="eyebrow">One party = one week of posts</span>
+    <h2>Film this at every event</h2>
+    <div class="cols">
+      <div class="shot" id="shots"></div>
+      <div style="display:grid;gap:12px;align-content:start">
+        <h3>How to post</h3>
+        <ul class="rules">
+          <li>Put the hook on screen in the first second.</li>
+          <li>Keep most Reels under 30 seconds. The 5 to 15 second ones did as well as minute-long ones.</li>
+          <li>Use the real sound of the machines. The biggest videos had no talking.</li>
+          <li>Carousels are for saves: checklists, FAQs, menus, packs. End each with one ask.</li>
+          <li>Put the town in the caption and location so local parents find it.</li>
+          <li>After two weeks, see which format got the most views and do more of it.</li>
+          <li>Only post guests and kids with the host's okay.</li>
+        </ul>
+      </div>
+    </div>
+    <button class="reset" id="shotreset" type="button">Start a new event</button>
+  </div>
+</section>
+
+<section id="hooks">
+  <div class="wrap">
+    <span class="eyebrow">Tap to copy</span>
+    <h2>Hook bank</h2>
+    <div class="hooks" id="hooklist"></div>
+  </div>
+</section>
+
+<footer><div class="wrap">Views read from TikTok on November 1, 2026. Instagram hides Reel views unless you're logged in, so the numbers are TikTok's; the same formats work as Reels. Videos play from TikTok and belong to their creators.</div></footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  const FORMATS = {
+    machine: { name: "The machine", proof: "48.4M · 5.3M · 614K", what: "Close-up of a machine doing its thing: cotton candy spinning, popcorn popping, ice shaving, or the cleanup after. Real sound, no talking.", use: "Film the concession machines at every event, plus one cotton candy machine cleaning after a party." },
+    setup: { name: "The setup", proof: "971K · 930K · 617K · 140K", what: "Empty space to finished party. Timelapse or quick cuts, with the steps or minutes on screen.", use: "Bounce house inflating, tables and tent going up, the bar coming together, the 360 booth built." },
+    guests: { name: "The guests", proof: "1.3M · 1.2M · 127K", what: "What the party feels like: kids running to the bounce house, guests on the 360 booth, the yard lit up at night.", use: "360 booth slow-mo, the kid or host seeing the setup for the first time." },
+    joke: { name: "The 5-second joke", proof: "437K · 199K", what: "One relatable line on screen over one clip. Fast to make, easy to share.", use: "“When the host says it's a small party” over a huge setup." },
+    story: { name: "The story", proof: "452K · 78K", what: "A quick lesson or a day in the life.", use: "“Why we show up 2 hours early,” or a full event day from van to teardown." },
+    hookah: { name: "Hookah", proof: "5.8K best this year", what: "Hookah content gets very little reach because TikTok keeps smoking off the For You page.", use: "Show the craft: fruit carving, lounge setup, people laughing. Keep smoke out of it." }
+  };
+  const V = [
+    { id: "7577341900747754774", a: "tanggemianhuatang", v: "48.4M", sv: "95K", d: 66, when: "Nov 2025", f: "machine", what: "A cotton candy machine getting cleaned, close-up.", copy: "After a party, film the sugar mess and the cleanup. Caption: “Cleaning the cotton candy machine after [real number] kids.”" },
+    { id: "7592421476062612749", a: "angieanette", v: "5.3M", sv: "10K", d: 60, when: "Jan 2026", f: "machine", what: "Taking a cotton candy machine fully apart to get the sugar out.", copy: "Same idea as above. Real mess, real fix, satisfying finish." },
+    { id: "7617831013418339602", a: "slammyphotography", v: "1.3M", sv: "930", d: 27, when: "Mar 2026", f: "guests", what: "360 photo booth at an event, guests spinning in slow motion.", copy: "Stitch 4 or 5 of our best 360 clips. On screen: “Your guests after one spin.”" },
+    { id: "7684775760464203022", a: "feliciahorne", v: "1.2M", sv: "5.5K", d: 30, when: "Sep 2026", f: "guests", small: true, what: "Kids' birthday setup from someone who loves doing kids' parties.", copy: "A kids' party from setup to the kids running in. Show why we love doing it." },
+    { id: "7619878186863578399", a: "knockonwoodfl", v: "971K", sv: "23K", d: 15, when: "Mar 2026", f: "setup", what: "A mobile bar set up in 3 steps.", copy: "Our bar going up, with the real step count or minutes on screen." },
+    { id: "7628659697494609165", a: "blacmarketbar", v: "930K", sv: "7.5K", d: 63, when: "Apr 2026", f: "setup", what: "Behind the scenes: a mobile bartender setting up before guests arrive.", copy: "“Watch me set up” for an event, ending on the first drink poured." },
+    { id: "7653844571792608542", a: "bouncehouseblueprint1", v: "617K", sv: "1.4K", d: 65, when: "Jun 2026", f: "setup", small: true, what: "Setting up a big obstacle course inflatable, explaining it.", copy: "Our biggest inflatable going up, start to finish." },
+    { id: "7682079757873253662", a: "funfinity63", v: "614K", sv: "4.8K", d: 40, when: "Sep 2026", f: "machine", what: "Making cotton candy on the machine, start to finish.", copy: "Close-up of a cone spun from start to finish at a real party." },
+    { id: "7692808495921433870", a: "mbapartyrentals", v: "452K", sv: "259", d: 13, when: "Oct 2026", f: "story", small: true, what: "A quick story about why a rental agreement protects the business.", copy: "A real lesson from an event, told in 15 seconds over setup footage." },
+    { id: "7669207093571800334", a: "bayu.miami", v: "437K", sv: "1.9K", d: 7, when: "Aug 2026", f: "joke", what: "A bartender joke: “if I had $1 every time this happened.”", copy: "One line, one clip, under 8 seconds." },
+    { id: "7695844555760979222", a: "tommystubsandtents", v: "217K", sv: "1.5K", d: 22, when: "Oct 2026", f: "setup", what: "Glow theme party tent reveal.", copy: "A night setup reveal with lights on." },
+    { id: "7635756534001159438", a: "pouravidafl", v: "199K", sv: "2.9K", d: 5, when: "May 2026", f: "joke", small: true, what: "“Say less.” A 5-second mobile bar flex.", copy: "Our best bar shot with a two-word caption." },
+    { id: "7582552403036376342", a: "aueventsltd", v: "140K", sv: "1.5K", d: 33, when: "Dec 2025", f: "setup", small: true, what: "Setting up a 360 photo booth.", copy: "The 360 booth going up, ending with the first spin." },
+    { id: "7582468922868321567", a: "courtneybroskey", v: "127K", sv: "3.1K", d: 17, when: "Dec 2025", f: "guests", small: true, what: "A backyard turned into a club for a 30th birthday.", copy: "A grown-up backyard party with bar, booth and lights." },
+    { id: "7650157554529504543", a: "lakegenevapicnicco", v: "110K", sv: "2.4K", d: 13, when: "Jun 2026", f: "guests", small: true, what: "“Your sign to throw a backyard garden party.”", copy: "“Your sign to throw a backyard party this weekend” over our best setup." },
+    { id: "7617924684952243470", a: "ultimateparty.rentals79", v: "97K", sv: "453", d: 19, when: "Mar 2026", f: "setup", what: "An inflatable nightclub that turns a backyard into a club.", copy: "Shows that rentals sell to adults too, not just kids." },
+    { id: "7657744124652702989", a: "josiahsrentals", v: "78K", sv: "1.3K", d: 38, when: "Jul 2026", f: "story", what: "A day in the life running a party rental business.", copy: "Our own event day: van, setup, party, teardown." },
+    { id: "7575288459976281352", a: "dj.dizam", v: "5.8K", sv: "99", d: 20, when: "Nov 2025", f: "hookah", what: "The best hookah video of the year: a lounge night promo.", copy: "Shows how little reach smoking content gets. Lead Puff posts with the fruit and the setup instead." }
+  ];
+  const P = [
+    // week 1
+    { w: 1, day: "Mon", dt: "Nov 2", b: "p", k: "Reel · Setup", hook: "Empty yard → full party", how: "Timelapse from the first table to the finished setup, phone on a tripod in a corner. Hold the finished yard for 2 seconds." },
+    { w: 1, day: "Tue", dt: "Nov 3", b: "p", k: "Carousel", hook: "Your holiday party checklist", how: "6 slides: guest count, space, food, drinks, entertainment, book vendors 4+ weeks out. Last slide: “We handle the last three. DM us your date.”" },
+    { w: 1, day: "Wed", dt: "Nov 4", b: "p", k: "Reel · Machine", hook: "The sound of a kid's birthday", how: "Cotton candy spinning, close-up, real sound, 10–15 seconds." },
+    { w: 1, day: "Thu", dt: "Nov 5", b: "h", k: "Puff · Reel", hook: "How we turn a pineapple into a hookah", how: "Hands only: cut the top, hollow it, fit the bowl, finished piece on the table. Stop before anyone smokes." },
+    { w: 1, day: "Fri", dt: "Nov 6", b: "p", k: "Reel · Guests", hook: "Your guests after one spin", how: "4–5 slow-mo 360 booth clips back to back. Tag the guests who said yes." },
+    { w: 1, day: "Sat", dt: "Nov 7", b: "h", k: "Puff · Carousel", hook: "The fruit hookah menu", how: "One fruit per slide with a photo and flavor pairing. Last slide: book link." },
+    { w: 1, day: "Sat", dt: "Nov 7", b: "h", k: "Puff · Reel", hook: "The lounge, before and after", how: "Empty room, then the finished lounge with lights, pillows and hookahs. No smoke." },
+    { w: 1, day: "Sun", dt: "Nov 8", b: "p", k: "Reel · Joke", hook: "When the host says it's a small party", how: "5–7 seconds. Cut to the biggest setup we've done." },
+    { w: 1, day: "Sun", dt: "Nov 8", b: "p", k: "Carousel", hook: "What's in each Party Pack", how: "One slide per pack from the website with a photo. Last slide: “Which one is your party?”" },
+    // week 2
+    { w: 2, day: "Mon", dt: "Nov 9", b: "p", k: "Reel · Story", hook: "Pack the van with me for a Saturday party", how: "Quick cuts loading each piece, text listing what's going." },
+    { w: 2, day: "Tue", dt: "Nov 10", b: "p", k: "Carousel", hook: "How much space does a bounce house need?", how: "FAQ slides with photos: space, power outlet, surface, setup time. People save these and send them to whoever is planning." },
+    { w: 2, day: "Wed", dt: "Nov 11", b: "p", k: "Reel · Machine", hook: "Cleaning the cotton candy machine after [real number] kids", how: "The 48M-view format. Real sugar mess, close-up cleaning, satisfying finish." },
+    { w: 2, day: "Thu", dt: "Nov 12", b: "h", k: "Puff · Reel", hook: "Setting up a hookah lounge in someone's living room", how: "Setup reveal: rugs, pillows, lights, hookahs placed. End on the finished room." },
+    { w: 2, day: "Fri", dt: "Nov 13", b: "p", k: "Reel · Setup", hook: "Mobile bar, ready in [real] minutes", how: "Bar going up, bottles placed, first drink poured in slow motion." },
+    { w: 2, day: "Sat", dt: "Nov 14", b: "h", k: "Puff · Reel", hook: "Watermelon bowl, start to finish", how: "Same as week 1 with a different fruit. If one fruit wins, keep repeating it." },
+    { w: 2, day: "Sat", dt: "Nov 14", b: "h", k: "Puff · Carousel", hook: "5 ways to turn a grown-up party into a lounge", how: "Lighting, seating, music, drinks, hookah. Last slide: “We bring all of it.”" },
+    { w: 2, day: "Sun", dt: "Nov 15", b: "p", k: "Reel · Guests", hook: "Close your eyes…", how: "The host or birthday kid seeing the finished setup. Their face is the video." },
+    { w: 2, day: "Sun", dt: "Nov 15", b: "p", k: "Carousel", hook: "Plan a backyard party in 5 steps", how: "A guide people save. Each step ends with how Paradise covers it." },
+    // week 3
+    { w: 3, day: "Mon", dt: "Nov 16", b: "p", k: "Reel · Story", hook: "Why we always show up 2 hours early", how: "Short talking clip or text over setup footage." },
+    { w: 3, day: "Tue", dt: "Nov 17", b: "p", k: "Carousel", hook: "Friendsgiving, but make it a party", how: "Setup ideas using our photos: bar, treats, booth. Last slide: open December dates." },
+    { w: 3, day: "Wed", dt: "Nov 18", b: "p", k: "Reel · Joke", hook: "Me at 7am Saturday vs me at the party at 7pm", how: "Two clips, 6 seconds total." },
+    { w: 3, day: "Thu", dt: "Nov 19", b: "h", k: "Puff · Reel", hook: "The table everyone ends up at", how: "Wide shot of the hookah lounge corner at a party, people talking and laughing." },
+    { w: 3, day: "Fri", dt: "Nov 20", b: "p", k: "Reel · Setup", hook: "Holiday party setup in 60 seconds", how: "Setup timelapse with holiday touches. Caption: the dates left in December." },
+    { w: 3, day: "Sat", dt: "Nov 21", b: "h", k: "Puff · Carousel", hook: "Holiday party add-on: the hookah lounge", how: "What's included, how it works, 21+ only. Last slide: book link." },
+    { w: 3, day: "Sat", dt: "Nov 21", b: "h", k: "Puff · Reel", hook: "Same fruit, three ways", how: "Repeat whichever fruit build did best in weeks 1 and 2." },
+    { w: 3, day: "Sun", dt: "Nov 22", b: "p", k: "Reel · Machine", hook: "Popcorn for 100", how: "Popcorn machine overflowing, close-up, real sound." },
+    { w: 3, day: "Sun", dt: "Nov 22", b: "p", k: "Carousel", hook: "December dates left", how: "Calendar graphic with the real open Saturdays. Update it in Stories as dates fill." },
+    // week 4
+    { w: 4, day: "Mon", dt: "Nov 23", b: "p", k: "Reel · Guests", hook: "Kids at 2pm, grown-ups at 8pm. Same yard.", how: "The video only we can make: bounce house and treats by day, bar, booth and hookah by night." },
+    { w: 4, day: "Tue", dt: "Nov 24", b: "p", k: "Carousel", hook: "What our clients said this month", how: "One real quote per slide, with permission. Skip it if there aren't real quotes yet." },
+    { w: 4, day: "Wed", dt: "Nov 25", b: "p", k: "Reel · Story", hook: "A full event day with Paradise", how: "Van, setup, party, teardown, home. 30–40 seconds." },
+    { w: 4, day: "Thu", dt: "Nov 26", b: "h", k: "Puff · Reel", hook: "Thankful for every party we got to set up", how: "Thanksgiving. Best lounge setups of the month, quick cuts." },
+    { w: 4, day: "Fri", dt: "Nov 27", b: "p", k: "Reel · Setup", hook: "New Year's Eve, but at your house", how: "Night setup with lights, bar and booth. Caption: NYE booking is open." },
+    { w: 4, day: "Sat", dt: "Nov 28", b: "h", k: "Puff · Carousel", hook: "Ring in 2027 with a lounge", how: "NYE package slides. Last slide: book link." },
+    { w: 4, day: "Sat", dt: "Nov 28", b: "h", k: "Puff · Reel", hook: "Repeat the best Puff Reel of the month", how: "Same format, new fruit or new venue." },
+    { w: 4, day: "Sun", dt: "Nov 29", b: "p", k: "Reel · Joke", hook: "Repeat the best joke of the month", how: "New line, same structure." },
+    { w: 4, day: "Sun", dt: "Nov 29", b: "p", k: "Carousel", hook: "November in parties", how: "Best photo from each event this month. Last slide: “Your party next?”" }
+  ];
+  const WEEKS = { 1: ["Show what we do", "Nov 2 – 8"], 2: ["Behind the scenes", "Nov 9 – 15"], 3: ["Holiday push", "Nov 16 – 22"], 4: ["One team, whole party", "Nov 23 – 29"] };
+  const SHOTS = ["Empty space before anything comes off the van (5 sec)", "Timelapse of the whole setup, tripod in a corner", "Each machine running, close-up, real sound (15 sec each)", "The host or kid seeing it for the first time", "360 booth slow-mo of guests who say yes", "The bar: one slow-motion pour", "Wide shot at the busiest moment", "Night shot with the lights on", "Teardown, especially cleaning the cotton candy machine", "Puff: fruit prep, hands only, then the finished lounge"];
+  const HOOKS = ["Empty yard → full party", "The sound of a kid's birthday", "Your guests after one spin", "When the host says it's a small party", "Cleaning the cotton candy machine after [number] kids", "Ready in [number] minutes", "Close your eyes…", "Kids at 2pm, grown-ups at 8pm. Same yard.", "How we turn a pineapple into a hookah", "[Number] Saturdays left in December", "Your sign to throw a backyard party this weekend", "Pack the van with me"];
+
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  };
+  const toast = msg => { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 1600); };
+  async function copy(text) {
+    try { await navigator.clipboard.writeText(text); toast("Copied"); }
+    catch { const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); toast("Copied"); } catch { toast("Press and hold to copy"); } ta.remove(); }
+  }
+
+  // ---- videos ----
+  let vf = "all";
+  const vchips = [["all", "All"], ["machine", "Machine"], ["setup", "Setup"], ["guests", "Guests"], ["joke", "Joke"], ["story", "Story"], ["hookah", "Hookah"]];
+  $("#vfilter").innerHTML = vchips.map(([k, n]) => `<button class="chip" type="button" data-vf="${k}" aria-pressed="${k === vf}">${n}</button>`).join("");
+  function renderVideos() {
+    $("#vgrid").innerHTML = V.filter(x => vf === "all" || x.f === vf).map(x => `
+      <article class="vcard">
+        <div class="vstage" id="st-${x.id}">
+          <button class="vplay" type="button" data-play="${x.id}" aria-label="Play the @${esc(x.a)} video">
+            <span class="lbl">views</span>
+            <span class="views">${x.v}</span>
+            <span class="btn-play">▶ Play</span>
+          </button>
+        </div>
+        <div class="vbody">
+          <div class="vmeta"><span class="pill f">${FORMATS[x.f].name}</span><span class="pill">${x.d}s</span><span class="pill">${x.when}</span><span class="pill">${x.sv} saves</span>${x.small ? '<span class="pill s">Small account</span>' : ""}</div>
+          <p>${esc(x.what)}</p>
+          <p class="copy"><b>Our version:</b> ${esc(x.copy)}</p>
+          <a class="src" href="https://www.tiktok.com/@${esc(x.a)}/video/${x.id}" target="_blank" rel="noopener">@${esc(x.a)} on TikTok ↗</a>
+        </div>
+      </article>`).join("");
+  }
+  $("#vfilter").addEventListener("click", e => {
+    const b = e.target.closest("[data-vf]"); if (!b) return;
+    vf = b.dataset.vf;
+    document.querySelectorAll("[data-vf]").forEach(c => c.setAttribute("aria-pressed", c === b));
+    renderVideos();
+  });
+  $("#vgrid").addEventListener("click", e => {
+    const b = e.target.closest("[data-play]"); if (!b) return;
+    const id = b.dataset.play, st = document.getElementById("st-" + id);
+    st.innerHTML = `<iframe src="https://www.tiktok.com/player/v1/${id}?autoplay=1&music_info=1&description=1" allow="autoplay; fullscreen; encrypted-media" allowfullscreen title="TikTok video"></iframe>`;
+  });
+  renderVideos();
+
+  // ---- formats ----
+  $("#fgrid").innerHTML = Object.values(FORMATS).map(f => `<div class="fmt"><h3>${f.name}</h3><span class="proof">${f.proof}</span><p>${esc(f.what)}</p><p class="use"><b>For us:</b> ${esc(f.use)}</p></div>`).join("");
+
+  // ---- planner ----
+  const KEY = "pe_plan_nov26";
+  let st = store.get(KEY, {});
+  let pf = "all";
+  const pchips = [["all", "Both brands"], ["p", "Paradise"], ["h", "Puff Paradise"], ["todo", "Not posted yet"]];
+  $("#pfilter").innerHTML = pchips.map(([k, n]) => `<button class="chip" type="button" data-pf="${k}" aria-pressed="${k === pf}">${n}</button>`).join("");
+  const pid = (x, i) => "p" + i;
+  function renderPlan() {
+    const posted = P.filter((x, i) => st[pid(x, i)]?.posted).length;
+    $("#ptotal").textContent = `${posted} / ${P.length}`;
+    $("#pfill").style.width = (posted / P.length * 100) + "%";
+    $("#weeks").innerHTML = [1, 2, 3, 4].map(w => {
+      const items = P.map((x, i) => ({ x, i })).filter(({ x, i }) => x.w === w && (pf === "all" || pf === x.b || (pf === "todo" && !st[pid(x, i)]?.posted)));
+      const wd = P.filter((x, i) => x.w === w && st[pid(x, i)]?.posted).length, wt = P.filter(x => x.w === w).length;
+      return `<div class="week">
+        <div class="week-head"><h3>Week ${w} · ${WEEKS[w][0]}</h3><span class="cnt">${WEEKS[w][1]} · ${wd}/${wt} posted</span></div>
+        ${items.length ? items.map(({ x, i }) => {
+          const s = st[pid(x, i)] || {};
+          return `<div class="post ${x.b === "h" ? "puff" : ""} ${s.posted ? "done" : ""}">
+            <div class="when"><b>${x.dt.split(" ")[1]}</b><span>${x.day}</span></div>
+            <div class="what">
+              <span class="kind">${x.b === "h" ? "" : "Paradise · "}${esc(x.k)}</span>
+              <span class="hook">“${esc(x.hook)}”</span>
+              <span class="how">${esc(x.how)}</span>
+              <div class="acts">
+                <button class="tog" type="button" data-t="filmed" data-i="${i}" aria-pressed="${!!s.filmed}">${s.filmed ? "✓ Filmed" : "Filmed"}</button>
+                <button class="tog" type="button" data-t="posted" data-i="${i}" aria-pressed="${!!s.posted}">${s.posted ? "✓ Posted" : "Posted"}</button>
+                <button class="tog copyb" type="button" data-c="${i}">Copy hook</button>
+              </div>
+            </div>
+          </div>`;
+        }).join("") : '<p class="dim">Nothing left here. Nice.</p>'}
+      </div>`;
+    }).join("");
+  }
+  $("#pfilter").addEventListener("click", e => {
+    const b = e.target.closest("[data-pf]"); if (!b) return;
+    pf = b.dataset.pf;
+    document.querySelectorAll("[data-pf]").forEach(c => c.setAttribute("aria-pressed", c === b));
+    renderPlan();
+  });
+  $("#weeks").addEventListener("click", e => {
+    const c = e.target.closest("[data-c]");
+    if (c) { copy(P[+c.dataset.c].hook); return; }
+    const b = e.target.closest("[data-t]"); if (!b) return;
+    const k = "p" + b.dataset.i, t = b.dataset.t;
+    st[k] = st[k] || {};
+    st[k][t] = !st[k][t];
+    if (t === "posted" && st[k].posted) st[k].filmed = true;
+    store.set(KEY, st);
+    renderPlan();
+    if (t === "posted" && st[k].posted) toast("Posted. Keep going!");
+  });
+  renderPlan();
+
+  // ---- shot list ----
+  const SK = "pe_shots";
+  let sh = store.get(SK, []);
+  function renderShots() {
+    $("#shots").innerHTML = '<h3>Shot list</h3>' + SHOTS.map((s, i) => `<button type="button" data-s="${i}" aria-pressed="${sh.includes(i)}"><span class="dot" aria-hidden="true">✓</span><span>${esc(s)}</span></button>`).join("");
+  }
+  $("#shots").addEventListener("click", e => {
+    const b = e.target.closest("[data-s]"); if (!b) return;
+    const i = +b.dataset.s;
+    sh = sh.includes(i) ? sh.filter(x => x !== i) : [...sh, i];
+    store.set(SK, sh); renderShots();
+  });
+  $("#shotreset").addEventListener("click", () => { sh = []; store.set(SK, sh); renderShots(); toast("Shot list cleared"); });
+  renderShots();
+
+  // ---- hooks ----
+  $("#hooklist").innerHTML = HOOKS.map((h, i) => `<div class="hook-row"><span>“${esc(h)}”</span><button class="tog copyb" type="button" data-h="${i}">Copy</button></div>`).join("");
+  $("#hooklist").addEventListener("click", e => { const b = e.target.closest("[data-h]"); if (b) copy(HOOKS[+b.dataset.h]); });
+})();
+</script>
+</body>
+</html>
